@@ -11,7 +11,7 @@ using namespace std;
 char* DeleteSymbol();
 char* DeleteAllSymbol();
 char* SymbolInString();
-char* SymbolPointreplacement();
+char* SymbolPointReplacement();
 void Symbolreplacement();
 void CheckSymbols();
 
@@ -20,8 +20,8 @@ int main()
     //cout << DeleteSymbol();        //Task 1
     //cout << DeleteAllSymbol();     //Task 2
     //cout << SymbolInString();        //Task 3
-    cout << SymbolPointreplacement();    //Task 4
-    //Symbolreplacement();        //Task 5
+    //cout << SymbolPointReplacement();    //Task 4
+    Symbolreplacement();        //Task 5
     //CheckSymbols();      //Task 6
 }
 
@@ -68,7 +68,7 @@ char* SymbolInString() {
 //Task 4 Написать программу, которая заменяет все
 //символы точки «.» в строке, введенной пользователем,
 //на символы восклицательного знака «!».
-char* SymbolPointreplacement() {
+char* SymbolPointReplacement() {
     char* strin = new char[256];
     gets_s(strin,256);
     char* str;
@@ -85,18 +85,19 @@ char* SymbolPointreplacement() {
 void Symbolreplacement() {
     char* strin = new char[256];
     gets_s(strin, 256);
-    char us;
-    cin >> us;
-    int count = 0;
-    for (int i = 0; i < strlen(strin); i++) {
-        if (strin[i] == us)
-            count++;
+    char us = 'o'; // пользователя символ
+    int count = 0; // счестчик
+    char* str;
+    while (str = strchr(strin, us)) {
+        count++;
+        strin = str+1;
     }
     cout << count;
 }
 //Task 6 Пользователь вводит строку. Определить ко-
 //личество букв, количество цифр и количество остальных
 //символов, присутствующих в строке.
+//Вот сие назидание, как понимаю, у мено выполнено верно
 void CheckSymbols() {
     char* strin = new char[256];
     gets_s(strin, 256);
@@ -111,7 +112,7 @@ void CheckSymbols() {
         else
             other++;
     }
-    cout << "Digit:" << digit << endl <<
+    cout << "Digits:" << digit << endl <<
         "Letters: " << alpha << endl <<
         "Other symbols: " << other;
 }
