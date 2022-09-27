@@ -8,81 +8,75 @@
 
 using namespace std;
 
-void DeleteSymbol();
-void DeleteAllSymbol();
-void SymbolInString();
-void SymbolPointreplacement();
+char* DeleteSymbol();
+char* DeleteAllSymbol();
+char* SymbolInString();
+char* SymbolPointreplacement();
 void Symbolreplacement();
 void CheckSymbols();
+
 int main()
 {
-    //DeleteSymbol();        //Task 1
-    //DeleteAllSymbol();     //Task 2
-    //SymbolInString();        //Task 3
-    //SymbolPointreplacement();    //Task 4
+    //cout << DeleteSymbol();        //Task 1
+    //cout << DeleteAllSymbol();     //Task 2
+    //cout << SymbolInString();        //Task 3
+    cout << SymbolPointreplacement();    //Task 4
     //Symbolreplacement();        //Task 5
     //CheckSymbols();      //Task 6
 }
 
 //Task 1  Написать функцию, которая удаляет из строки
 //символ с заданным номером.
-void DeleteSymbol() {
+char* DeleteSymbol() {
     char* strin = new char[256]{ "Hello my lovest world of the worlds" };
+    char* new_strin = new char[strlen(strin) - 1];
     int delIndex = 3;
-    for (int i = 0; i < strlen(strin); i++) {
-        if (i == delIndex)
-            strin[i] = ' ';
-    }
-    cout << strin;
+    strncpy_s(new_strin, strlen(strin), strin, delIndex - 1);
+    strcat_s(new_strin, strlen(strin),strin+delIndex);
+    delete[] strin;
+    return new_strin;
 }
 
 //Task 2 Написать функцию, которая удаляет из строки
 //все вхождения в нее заданного символа
-void DeleteAllSymbol() {
+char* DeleteAllSymbol() {
     char* strin = new char[256]{ "Hello my lovest world of the worlds" };
-    
+    char* new_strin = new char[256]{""};
+    char* str;
     char element = 'l';
-    int count = 0;
-    for (int i = 0, j = 0; i < strlen(strin); i++) {
-        if (strin[i] != element) { 
-            count++;
-        }
+    while (str = strchr(strin,element)) {
+        strncat_s(new_strin,strlen(strin),strin,strlen(strin)-strlen(str));
+        strin = str+1;
     }
-    char* strin2 = new char[strlen(strin)-count];
-    for (int i = 0, j = 0; i < strlen(strin); i++) {
-        if (strin[i] != element) {
-                strin2[j] = strin[i];
-                j++;
-        }
-    }
-    cout << strin2;
-    delete[] strin2;
+    strcat_s(new_strin, strlen(str)+5,str);
+    return new_strin;
  }
 
 //Task 3 Написать функцию, которая вставляет в строку
 //в указанную позицию заданный символ.
-void SymbolInString() {
+char* SymbolInString() {
     char* strin = new char[256]{ "Hello my lovest world of the worlds" };
     int index = 5;
     char litera = 'A';
-    for (int i = 0; i < strlen(strin); i++) {
-        if (i == index) 
-            strin[i] = litera;
-    }
-    cout << strin;
+    char* new_strin = new char[strlen(strin)+1];
+    strncpy_s(new_strin, strlen(strin), strin, index+1);
+    *(new_strin+index) = litera;
+    strcat_s(new_strin, strlen(strin)+2, strin + index);
+    return new_strin;
 }
 
 //Task 4 Написать программу, которая заменяет все
 //символы точки «.» в строке, введенной пользователем,
 //на символы восклицательного знака «!».
-void SymbolPointreplacement() {
+char* SymbolPointreplacement() {
     char* strin = new char[256];
     gets_s(strin,256);
-    for (int i = 0; i < strlen(strin); i++) {
-        if (strin[i] == '.')
-            strin[i] = '!';
+    char* str;
+    while (str = strchr(strin, '.')) {
+        *(str) = '!';
+        strcpy_s(strin+strlen(strin)-strlen(str), strlen(strin), str);
     }
-    cout << strin;
+    return strin;
 }
 
 //Task 5 Пользователь вводит строку символов и ис-
